@@ -1,0 +1,11 @@
+#! /bin/bash
+
+cd $(dirname "$0")
+
+if [ -z "$CRONOFY_CLIENT_SECRET" ]; then
+  echo -n "Cronofy client secret: "
+  read secret
+  export CRONOFY_CLIENT_SECRET=$secret
+fi
+
+node index.js
