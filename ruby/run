@@ -1,0 +1,13 @@
+#! /bin/bash
+
+cd $(dirname "$0")
+
+bundle
+
+if [ -z "$CRONOFY_CLIENT_SECRET" ]; then
+  echo -n "Cronofy client secret: "
+  read secret
+  export CRONOFY_CLIENT_SECRET=$secret
+fi
+
+bundle exec ruby server.rb
