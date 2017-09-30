@@ -18,8 +18,11 @@ const requestHandler = (request, response) => {
 
         var calculated = crypto.createHmac('sha256', process.env.CRONOFY_CLIENT_SECRET).update(body).digest('base64');
         console.log('Calculated HMAC: ' + calculated);
+        
+        var sentBuffer = new Buffer(sent, 'base64');
+        var calculatedBuffer = new Buffer(calculated, 'base64');
 
-        match = calculated === sent;
+        match = (sentBuffer.length === calculatedBuffer.length) && crypto.timingSafeEqual(sentBuffer, calculatedBuffer);
         console.log('Match: ' + match);
 
         response.end(match.toString());
